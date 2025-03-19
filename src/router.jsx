@@ -1,20 +1,34 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from './layouts/RootLayout';
-import { Home } from './pages';
+import { Home, About, Author, Book, Chapters, Characters } from './pages';
 
 const router = createBrowserRouter([
   {
-    index,
+    path: '/',
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      // { path: 'about', element: <AboutPage /> },
-      // { path: 'author/:name', element: <AuthorDetailPage /> },
-      // { path: 'author/:name/:book', element: <BookDetailPage /> },
-      // {
-      //   path: 'author/:name/:book/characters',
-      //   element: <BookCharactersPage />,
-      // },
+      { path: 'about', element: <About /> },
+      {
+        path: 'authors/:name',
+        element: <Author />,
+        children: [
+          {
+            path: ':book',
+            element: <Book />,
+            children: [
+              {
+                path: 'chapters',
+                element: <Chapters />,
+              },
+              {
+                path: 'characters',
+                element: <Characters />,
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ]);
